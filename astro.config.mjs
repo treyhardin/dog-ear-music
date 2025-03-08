@@ -20,6 +20,6 @@ export default defineConfig({
     }),
     react()
   ],
-  output: 'static',
+  output: 'server',
   adapter: cloudflare()
 });
