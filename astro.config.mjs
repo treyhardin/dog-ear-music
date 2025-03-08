@@ -11,7 +11,6 @@ export default defineConfig({
   image: {
     domains: ["astro.build", "api.sanity.io"],
   },
-
   integrations: [
     sanity({
       projectId: 'hz62cv9y',
@@ -21,6 +20,6 @@ export default defineConfig({
     }),
     react()
   ],
-
+  output: 'static',
   adapter: cloudflare()
 });
