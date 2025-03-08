@@ -20,7 +20,7 @@ export default defineConfig({
     }),
     react()
   ],
-  output: 'server',
+  output: 'static',
   adapter: cloudflare(),
   vite: {
     resolve: {
