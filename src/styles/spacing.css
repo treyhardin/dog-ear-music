@@ -1,0 +1,16 @@
+:root {
+  --space-3xs: 5px;
+  --space-2xs: 10px;
+  --space-xs: 15px;
+  --space-sm: 20px;
+  --space-md: 30px;
+  --space-lg: 40px;
+  --space-xl: 60px;
+  --space-2xl: 80px;
+  --space-3xl: 120px;
+
+  --radius-sm: 4px;
+  --radius-lg: 100px;
+
+  --page-margin: var(--space-md);
+}

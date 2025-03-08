@@ -1,0 +1,139 @@
+---
+import { Image } from "astro:assets"
+import { sanityFetch, imageQuery, urlFor } from "../lib/sanity-client"
+
+const content = await sanityFetch(`*[ _type == 'hero']{
+  ${imageQuery('imageForeground')},
+  ${imageQuery('imageBackground')},
+  ${imageQuery('imageForegroundMobile')},
+  ${imageQuery('imageBackgroundMobile')}
+}[0]`)
+
+const test = urlFor(content.imageForeground).url()
+console.log(test)
+console.log(content.imageForeground)
+---
+<section class="hero">
+  <Image 
+    class="image-foreground"
+    src={content.imageForeground.url}
+    width={content.imageForeground.dimensions.width}
+    height={content.imageForeground.dimensions.height}
+    alt="Band image foreground" 
+    loading={'eager'}
+    srcset={`
+      ${urlFor(content.imageForeground).width(2880).auto('format').url()} 2880w,
+      ${urlFor(content.imageForeground).width(2048).auto('format').url()} 2048w,
+      ${urlFor(content.imageForeground).width(1720).auto('format').url()} 1720w,
+      ${urlFor(content.imageForegroundMobile).width(1280).auto('format').url()} 1280w,
+      ${urlFor(content.imageForegroundMobile).width(768).auto('format').url()} 768w,
+      ${urlFor(content.imageForegroundMobile).width(480).auto('format').url()} 480w
+    `}
+    sizes={'100vw'}
+  />
+
+  <Image 
+    class="image-background"
+    src={content.imageBackground.url}
+    width={content.imageBackground.dimensions.width}
+    height={content.imageBackground.dimensions.height}
+    alt="Band image foreground" 
+    loading={'eager'}
+    srcset={`
+      ${urlFor(content.imageBackground).width(2880).auto('format').url()} 2880w,
+      ${urlFor(content.imageBackground).width(2048).auto('format').url()} 2048w,
+      ${urlFor(content.imageBackground).width(1720).auto('format').url()} 1720w,
+      ${urlFor(content.imageBackgroundMobile).width(1280).auto('format').url()} 1280w,
+      ${urlFor(content.imageBackgroundMobile).width(768).auto('format').url()} 768w,
+      ${urlFor(content.imageBackgroundMobile).width(480).auto('format').url()} 480w
+    `}
+    sizes={'100vw'}
+  />
+  
+  <svg class="logo" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1310 283">
+    <path fill="currentColor" d="M502.576 8.79h68.328l5.256 2.631v34.21l-2.628 5.264-99.864-5.263L457.9 43v100l-2.628 86.842 68.328-5.263h15.768l-2.628-60.526-65.7-2.632-2.628-2.632v-50l5.256-5.263h105.12l2.628 2.632v31.579l-7.884 121.052-5.256 5.264H444.76l-36.792-2.632-2.628-2.632-2.628-157.894v-84.21l2.628-5.264 97.236-2.632ZM202.984.895h49.932l118.26 2.631 5.256 10.527L371.176 193l-2.628 65.789-2.628 2.632H213.496l-5.256-13.158L197.728 27.21V6.158l5.256-5.263Zm49.932 47.368-2.628 13.158-2.628 110.526v55.264l34.164 2.631h42.048V82.474l-2.628-28.948-2.628-2.631-34.164-2.632h-31.536ZM3.256 3.526H129.4l26.28 28.948 13.14 13.158v128.947l-2.628 47.368-28.908 36.842h-39.42l-89.352-5.263-7.884-5.263V8.789l2.628-5.263Zm57.816 42.106-15.768 150v13.158l70.956-2.632 7.884-5.263 7.884-147.369-49.932-7.894H61.072ZM1128.04 14.053h160.31l2.63 5.263 7.88 78.947v31.579l-13.14 21.053-65.7 2.631 31.54 36.842 28.9 36.843 28.91 34.21-5.25 10.526-10.52 10.527-13.14-2.632-18.39-23.684-36.79-44.737-26.28-31.579-21.03-26.316-2.63 110.527-2.62 5.263h-36.8l-10.51-2.632v-250l2.63-2.631Zm110.38 36.842-55.19 2.631-5.26 2.632-2.63 52.631 44.68 2.632h39.42V50.895h-21.02ZM1028.18 8.79l10.51 5.263 23.65 100 23.65 102.631 7.89 31.579-2.63 10.526-21.03 5.264h-13.14l-7.88-31.579-10.51-50v-13.158l-13.14 2.631-44.678 2.632-21.024 89.474-2.628 5.263-23.652-2.632-31.536-7.895-2.628-7.894 15.768-55.263 21.024-78.948 15.768-55.263 13.14-44.737 63.076-7.895Zm-18.4 42.105-7.88 23.684-10.516 47.368h34.166l-2.63-23.684-10.51-47.368h-2.63ZM715.444 14.053h105.12l5.256 5.263V43l-2.628 2.632-28.908 2.631h-28.908l2.628 34.21v26.316h31.536l2.628 2.632v39.474h-39.42l5.256 36.842v18.421l97.236-2.632 5.256 5.263-2.628 26.316-2.628 2.632H725.956l-18.396-5.263 2.628-144.737 2.628-71.053 2.628-2.631Z"/>
+  </svg>
+  
+</section>
+
+<script>
+
+  import { animate, scroll } from "motion"
+
+    
+  const logo = document.querySelector(".logo")
+  const section = document.querySelector(".hero")
+
+  if (section && logo) {
+
+    window.addEventListener("page:load", () => {
+        animate(logo, {
+          opacity: 1,
+          translate: "0%"
+        },{
+          duration: 1,
+          ease: [0.33, 1, 0.68, 1], 
+        })
+      })
+
+    // scroll( animate(
+    //     logo,
+    //     { opacity: 0 },
+    //     { ease: "linear" },
+    //   ),{
+    //     target: section,
+    //     offset: ["end end", "end 0%"]
+    //   })
+  }
+</script>
+
+<style>
+
+  .hero {
+    height: 95svh;
+    position: relative;
+  }
+
+  .logo {
+    opacity: 0;
+    translate: 0 30%;
+  }
+
+  .hero::after {
+    content: "";
+    height: 20%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* background-color: red; */
+    background: linear-gradient(180deg, rgba(13, 13, 13, 0), rgba(13, 13, 13, 1));
+    z-index: 3;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    /* height: 80svh; */
+    object-fit: cover;
+  }
+
+  .image-foreground {
+    z-index: 2;
+  }
+
+  .image-background {
+    z-index: 0;
+  }
+
+  svg {
+    position: sticky;
+    top: var(--header-height);
+    z-index: 1;
+    margin: var(--header-height) var(--page-margin) 0;
+  }
+</style>

@@ -1,16 +1,41 @@
+---
+import '../styles/base.css';
+import '../styles/animation.css';
+import '../styles/spacing.css';
+import '../styles/color.css';
+import '../styles/typography.css';
+import Preloader from '../components/Preloader.astro';
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Dog Ear Music 🎸 Ridgewood, Queens</title>
 	</head>
 	<body>
+		<Preloader />
 		<slot />
 	</body>
 </html>
+
+<script>
+	import Lenis from 'lenis'
+
+	// Initialize Lenis
+	export const lenis = new Lenis({
+		autoRaf: true,
+		lerp: 0.25
+	});
+
+	// Listen for the scroll event and log the event data
+	lenis.on('scroll', (e) => {
+		// console.log(e);
+	});
+</script>
 
 <style>
 	html,

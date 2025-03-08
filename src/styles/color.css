@@ -1,0 +1,10 @@
+:root {
+  --color-black: #0D0D0D;
+  --color-white: #F1F5E4;
+}
+
+html,
+body {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}

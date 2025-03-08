@@ -1,0 +1,101 @@
+---
+import { sanityFetch } from '../lib/sanity-client'
+import { parseSVG } from '../lib/parse-svg'
+
+const { content } = await sanityFetch(`*[ _type == 'header']{
+  content[]{text, url, "icon": icon.asset->url, newTab, hideMobile}
+}[0]`)
+---
+<header>
+  <nav>
+    {content.map((entry: any) => {
+      return entry.url ? (
+        <li class={`${entry.hideMobile ? "hide-mobile" : ""} header-item`}>
+          <a class="nav-link" href={entry.url} target={entry.newTab ? "_blank" : "_self"}>
+            {entry.icon && <span class="icon"><Fragment set:html={parseSVG(entry.icon)} /></span>}
+            {entry.text}
+          </a>
+        </li>
+      ) : (
+        <li class={`${entry.hideMobile ? "hide-mobile" : ""} header-item`}>
+          <p>
+            {entry.icon && <span class="icon"><Fragment set:html={parseSVG(entry.icon)} /></span>}
+            {entry.text}
+          </p>
+        </li>
+      )
+      }
+    )}
+  </nav>
+</header>
+
+<script>
+  import { animate, stagger } from "motion"
+  window.addEventListener("page:load", () => {
+    const headerItem = document.querySelectorAll(".header-item")
+    if (headerItem) {
+      animate(
+        headerItem, 
+        { 
+          y: "100%",
+          opacity: 1
+         }, 
+        { duration: 1, 
+          ease: [0.33, 1, 0.68, 1], 
+          delay: stagger(0.2) 
+        })
+    }
+  })
+</script>
+
+<style>
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+    align-items: center;
+    padding-inline: var(--page-margin);
+  }
+
+  nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-basis: 100%;
+  }
+
+  .header-item {
+    opacity: 0;
+    translate: 0 -100%;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .nav-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .icon {
+    height: auto;
+    display: inline;
+    display: flex;
+    place-items: center;
+  }
+
+  .icon :global(svg) {
+    width: 1rem;
+    height: auto;
+  }
+</style>

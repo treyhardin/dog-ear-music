@@ -1,0 +1,43 @@
+import { MenuIcon, SparklesIcon, ImagesIcon, InfoOutlineIcon } from '@sanity/icons'
+
+export const sanityStructure = (S) =>
+  S.list()
+    .title('Content')
+    .items([
+      S.listItem()
+        .title('Header')
+        .icon(MenuIcon)
+        .child(
+          S.document()
+            .title('Header')
+            .schemaType('header')
+            .documentId('header')
+        ),
+      S.listItem()
+        .title('Hero')
+        .icon(SparklesIcon)
+        .child(
+          S.document()
+            .title('Hero')
+            .schemaType('hero')
+            .documentId('hero')
+        ),
+      S.listItem()
+        .title('Media')
+        .icon(ImagesIcon)
+        .child(
+          S.document()
+            .title('Media')
+            .schemaType('media')
+            .documentId('media')
+        ),
+      S.listItem()
+        .title('Footer')
+        .icon(InfoOutlineIcon)
+        .child(
+          S.document()
+            .title('Footer')
+            .schemaType('footer')
+            .documentId('footer')
+        ),
+    ])
