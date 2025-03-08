@@ -12,9 +12,28 @@ import Preloader from '../components/Preloader.astro';
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- HTML Meta Tags -->
 		<title>Dog Ear Music 🎸 Ridgewood, Queens</title>
+		<link rel="icon" type="image/png" href="/favicon.png" />
+		<meta name="description" content="Dog Ear is a psych rock group based in Ridgewood, Queens, New York City.">
+
+		<!-- Facebook Meta Tags -->
+		<meta property="og:url" content="https://dogearmusic.com">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="Dog Ear Music 🎸 Ridgewood, Queens">
+		<meta property="og:description" content="Dog Ear is a psych rock group based in Ridgewood, Queens, New York City.">
+		<meta property="og:image" content="/OG_Image.png">
+
+		<!-- Twitter Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta property="twitter:domain" content="dogearmusic.com">
+		<meta property="twitter:url" content="https://dogearmusic.com">
+		<meta name="twitter:title" content="Dog Ear Music 🎸 Ridgewood, Queens">
+		<meta name="twitter:description" content="Dog Ear is a psych rock group based in Ridgewood, Queens, New York City.">
+		<meta name="twitter:image" content="/OG_Image.png">
+
 	</head>
 	<body>
 		<Preloader />

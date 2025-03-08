@@ -43,6 +43,11 @@ export const media = defineType({
               validation: Rule => Rule.required()
             },
             {
+              name: 'poster',
+              title: 'Poster',
+              type: 'image',
+            },
+            {
               name: 'text',
               title: 'Text',
               type: 'string',

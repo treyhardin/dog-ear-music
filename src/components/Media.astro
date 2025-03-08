@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets"
-import { sanityFetch, imageQuery, videoQuery } from "../lib/sanity-client"
+import { sanityFetch, imageQuery, videoQuery, urlFor } from "../lib/sanity-client"
 
 sanityFetch
 
@@ -34,7 +34,7 @@ const content = await sanityFetch(`*[ _type == 'media']{
       )
       if (media._type == "mediaVideo") return (
         <div class="media-card" data-animate="true">
-          <video controls>
+          <video controls poster={media.poster ? urlFor(media.poster).auto('format').url() : null}>
             <source type="video/mp4" src={media.video.url} />
           </video>
           {media.text && <p>{media.text}</p>}
